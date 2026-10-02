@@ -19,13 +19,14 @@ headers = {
 RULES_DIR = "qradar/rules"
 
 def sync_rules():
-    base_url = f"https://{QRADAR_IP}/api/analytics/rules"
+    # Doğru QRadar Custom Rules API endpoint ünvanı
+    base_url = f"https://{QRADAR_IP}/api/siem/custom_rules"
     
     print("QRadar-dakı mövcud qaydalar əldə edilir...")
     response = requests.get(base_url, headers=headers, verify=False)
     
     if response.status_code != 200:
-        print(f"Xəta: Qaydalar çəkilə bilmədi. Status: {response.status_code}")
+        print(f"Xəta: Qaydalar çəkilə bilmədi. Status: {response.status_code} - {response.text}")
         return
 
     existing_rules = response.json()
@@ -47,13 +48,11 @@ def sync_rules():
                 rule_id = rule_data.get("id")
                 
                 if rule_id:
-                    # Mövcud qayda üçün ID ilə POST sorğusu göndəririk (QRadar update üçün POST tələb edir)
                     update_url = f"{base_url}/{rule_id}"
-                    print(f"'{rule_name}' qaydası ID ({rule_id}) ilə yenilənir (POST)...")
+                    print(f"'{rule_name}' qaydası ID ({rule_id}) ilə yenilənir...")
                     sync_res = requests.post(update_url, headers=headers, json=rule_data, verify=False)
                 else:
-                    # Yeni qayda üçün baza URL-ə POST sorğusu
-                    print(f"'{rule_name}' yeni qayda olaraq yaradılır (POST)...")
+                    print(f"'{rule_name}' yeni qayda olaraq yaradılır...")
                     sync_res = requests.post(base_url, headers=headers, json=rule_data, verify=False)
                 
                 if sync_res.status_code in [200, 201]:
