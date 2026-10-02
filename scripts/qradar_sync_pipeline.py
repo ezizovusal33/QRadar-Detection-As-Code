@@ -44,9 +44,17 @@ def sync_rules():
                     rule_data = json.load(f)
                 
                 rule_name = rule_data.get("name")
+                rule_id = rule_data.get("id")
                 
-                print(f"'{rule_name}' qaydası QRadar ilə sinxronizasiya edilir (POST)...")
-                sync_res = requests.post(base_url, headers=headers, json=rule_data, verify=False)
+                if rule_id:
+                    # Mövcud qayda üçün ID ilə PUT sorğusu göndəririk
+                    update_url = f"{base_url}/{rule_id}"
+                    print(f"'{rule_name}' qaydası ID ({rule_id}) ilə yenilənir (PUT)...")
+                    sync_res = requests.put(update_url, headers=headers, json=rule_data, verify=False)
+                else:
+                    # Yeni qayda üçün POST sorğusu
+                    print(f"'{rule_name}' yeni qayda olaraq yaradılır (POST)...")
+                    sync_res = requests.post(base_url, headers=headers, json=rule_data, verify=False)
                 
                 if sync_res.status_code in [200, 201]:
                     print(f"Uğurlu! '{rule_name}' uğurla sinxronizasiya olundu.")
