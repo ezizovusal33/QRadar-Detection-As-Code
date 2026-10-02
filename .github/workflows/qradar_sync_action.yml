@@ -7,6 +7,7 @@ on:
     paths:
       - 'qradar/rules/**'
       - 'scripts/**'
+  workflow_dispatch: # <--- Bura əlavə olunur
 
 jobs:
   sync-to-qradar:
