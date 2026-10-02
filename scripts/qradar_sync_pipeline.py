@@ -45,12 +45,11 @@ def sync_rules():
                 
                 rule_name = rule_data.get("name")
                 
-                # QRadar API-da qayda yaratmaq/yeniləmək üçün əsas endpoint (POST) istifadə olunur
                 print(f"'{rule_name}' qaydası QRadar ilə sinxronizasiya edilir (POST)...")
                 sync_res = requests.post(base_url, headers=headers, json=rule_data, verify=False)
                 
                 if sync_res.status_code in [200, 201]:
-                    print(f"Uğurlu! '{rule_name' uğurla sinxronizasiya olundu.")
+                    print(f"Uğurlu! '{rule_name}' uğurla sinxronizasiya olundu.")
                 else:
                     print(f"Sinxronizasiya xətası ({sync_res.status_code}): {sync_res.text}")
 
