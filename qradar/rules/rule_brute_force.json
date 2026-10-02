@@ -2,7 +2,7 @@
     "id": 100479,
     "name": "Rule 1: Brute Force Attack Detected",
     "enabled": true,
-    "description": "Custom rule updated for API sync testing and automation trigger1",
+    "description": "Custom rule updated for API sync testing and automation trigger",
     "response_custom_action_id": -1,
     "accumulator_enabled": false
 }
