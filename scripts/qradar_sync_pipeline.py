@@ -47,12 +47,12 @@ def sync_rules():
                 rule_id = rule_data.get("id")
                 
                 if rule_id:
-                    # Mövcud qayda üçün ID ilə PUT sorğusu göndəririk
+                    # Mövcud qayda üçün ID ilə POST sorğusu göndəririk (QRadar update üçün POST tələb edir)
                     update_url = f"{base_url}/{rule_id}"
-                    print(f"'{rule_name}' qaydası ID ({rule_id}) ilə yenilənir (PUT)...")
-                    sync_res = requests.put(update_url, headers=headers, json=rule_data, verify=False)
+                    print(f"'{rule_name}' qaydası ID ({rule_id}) ilə yenilənir (POST)...")
+                    sync_res = requests.post(update_url, headers=headers, json=rule_data, verify=False)
                 else:
-                    # Yeni qayda üçün POST sorğusu
+                    # Yeni qayda üçün baza URL-ə POST sorğusu
                     print(f"'{rule_name}' yeni qayda olaraq yaradılır (POST)...")
                     sync_res = requests.post(base_url, headers=headers, json=rule_data, verify=False)
                 
