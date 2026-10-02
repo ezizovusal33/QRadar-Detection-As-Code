@@ -15,14 +15,15 @@ headers = {
     'Accept': 'application/json'
 }
 
-def check_endpoints():
-    # SIEM qrupunun əsas səhifəsini yoxlayaq ki, hansı endpoint-lər mövcuddur
-    test_url = f"https://{QRADAR_IP}/api/siem"
-    print(f"SIEM endpointləri yoxlanılır: {test_url}")
+def check_api_root():
+    # QRadar API-nin kök ünvanını yoxlayırıq ki, mövcud qovluqları görək
+    test_url = f"https://{QRADAR_IP}/api/"
+    print(f"API Kök ünvanı yoxlanılır: {test_url}")
     
     response = requests.get(test_url, headers=headers, verify=False)
     print(f"Status: {response.status_code}")
-    print(f"Cavab: {response.text}")
+    # Cavab uzun ola biləcəyi üçün ilk 1000 simvolunu çap edirik
+    print(f"Cavab: {response.text[:1000]}")
 
 if __name__ == "__main__":
-    check_endpoints()
+    check_api_root()
