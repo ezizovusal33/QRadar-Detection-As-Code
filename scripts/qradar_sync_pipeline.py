@@ -11,16 +11,15 @@ QRADAR_IP = os.environ.get("QRADAR_IP")
 TOKEN = os.environ.get("QRADAR_TOKEN")
 
 headers = {
-    'SEC': TOKEN,
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Version': '28.0'  # QRadar API üçün vacib olan Versiya başlığı
+    "SEC": TOKEN,
+    "Version": "28.0",
+    "Content-Type": "application/json",
+    "Accept": "application/json"
 }
 
 RULES_DIR = "qradar/rules"
 
 def sync_rules():
-    # Doğru Analytics Rules API endpoint ünvanı
     base_url = f"https://{QRADAR_IP}/api/analytics/rules"
     
     print("QRadar-dakı mövcud qaydalar əldə edilir...")
