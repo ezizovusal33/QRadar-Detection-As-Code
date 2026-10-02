@@ -1,0 +1,8 @@
+{
+    "id": 100479,
+    "name": "Rule 1: Brute Force Attack Detected",
+    "enabled": true,
+    "description": "Custom rule created for API sync testing",
+    "response_custom_action_id": -1,
+    "accumulator_enabled": false
+}
